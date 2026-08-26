@@ -1,6 +1,6 @@
 # Fish Annotation Portfolio
 
-Documented annotation work on underwater aquaculture imagery. Ten frames, four annotation types,
+Documented annotation work on underwater fish imagery. Ten frames, four annotation types,
 two platforms, and the reasoning behind every rule.
 
 **Public dataset:** https://universe.roboflow.com/arid-dodul/aquaculture-fish-segmentation
@@ -11,7 +11,7 @@ two platforms, and the reasoning behind every rule.
 
 Most annotation portfolios show finished labels. This one shows the decisions.
 
-Ten frames of tilapia from a commercial recirculating aquaculture system, annotated with
+Ten frames of marine fish - bigeye trevally, mojarra and northwest black bream - annotated with
 **bounding boxes, polygons, keypoint skeletons and semantic masks**, under a guideline document
 taken through **nine revisions**, each revision traceable to a specific frame that broke the
 previous version.
@@ -68,15 +68,35 @@ byte-identical to one two rounds old, same MD5, different filename, no warning. 
 
 ## Source data and licence
 
+**Two datasets, both CC BY 4.0, used for different parts of this work.**
+
+### Images - the ten annotated frames
+
+**UnderWater Fish Detection**, Roboflow Universe, v6, generated 30 November 2023.
+Licensed **CC BY 4.0**.
+https://universe.roboflow.com/underwater-fish/underwater-fish-detection-izi1l
+
+The ten frames are marine species: *Caranx sexfasciatus*, *Gerres* sp. and
+*Acanthopagrus palmaris*.
+
+**The dataset's original labels were not used.** Every box, polygon, keypoint, mask and attribute
+in this repository is my own, produced from scratch under the guidelines here.
+
+Per-frame original filenames, recorded before renaming, in `SOURCE_FILENAMES.txt`.
+
+### Video - prepared, not yet annotated
+
 **Tilapia-RAS Dataset: Underwater Videos and Polygon-Annotated Frames with Physicochemical Metadata.**
 Zenodo, DOI **10.5281/zenodo.17518786**. Licensed **CC BY 4.0**.
 Origin: commercial RAS facility integrated with hydroponics, Queretaro, Mexico.
 
-**The source dataset ships with 3,520 polygon-annotated frames. They were not opened or used.**
-Every box, polygon, keypoint, mask and attribute here is my own, produced from scratch under the
-guidelines in this repository.
+A 300-frame clip is prepared and loaded, and `video_annotation_guidelines_v6.md` and
+`cvat_labels_video.json` define the tracking schema. **The tracking run itself is not done. No video
+annotations appear in this repository.**
 
-Full provenance in `SOURCE_FILENAMES.txt` and `VIDEO_SOURCE_PROVENANCE.txt`.
+**That dataset ships with 3,520 polygon-annotated frames. They were not opened or used.**
+
+Clip selection, licence detail and provenance in `VIDEO_SOURCE_PROVENANCE.txt`.
 
 ## Contents
 

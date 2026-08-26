@@ -1,0 +1,28 @@
+DATASET PROVENANCE
+==================
+
+Name:      UnderWater Fish Detection Computer Vision Model
+Publisher: "underwater fish" (Roboflow Universe)
+URL:       https://universe.roboflow.com/underwater-fish/underwater-fish-detection-izi1l
+Version:   v6, generated 30 November 2023
+Licence:   CC BY 4.0
+Task:      Object Detection
+Size:      1,886 images in project / 2,719 in v6
+
+Attribution required by CC BY 4.0. Credit this dataset in the portfolio.
+Annotations in this portfolio are my own, created from scratch. The dataset's
+original labels were not used.
+
+Original filenames, recorded before renaming
+--------------------------------------------
+
+01_bbox.jpg              <-- 7117_Caranx_sexfasciatus_juvenile_f000003_RGHS.jpg
+02_bbox.jpg              <-- 9870_Gerres_f000179_RGHS.jpg
+03_bbox.jpg              <-- 9898_Acanthopagrus_palmaris_f000030_RGHS.jpg
+04_polygon.jpg           <-- 7117_Caranx_sexfasciatus_juvenile_f000177_RGHS.jpg
+05_polygon.jpg           <-- 9866_acanthopagrus_and_caranx_f000074_RGHS.jpg
+06_polygon.jpg           <-- 9866_acanthopagrus_palmaris_f000110_RGHS.jpg
+07_keypoint.jpg          <-- 9852_Acanthopagrus_palmaris_f000068_RGHS.jpg
+08_keypoint.jpg          <-- 9862_Acanthopagrus_palmaris_f000095_RGHS.jpg
+09_segmentation.jpg      <-- 9908_Acanthopagrus_palmaris_f000041_RGHS.jpg
+10_segmentation.jpg      <-- 9866_acanthopagrus_palmaris_f000124_RGHS.jpg

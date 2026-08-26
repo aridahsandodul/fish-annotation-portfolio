@@ -1,0 +1,51 @@
+<!-- Label Studio labeling config - generated from cvat_labels.json -->
+<!-- brightness/contrast controls enabled on purpose: display adjustment is -->
+<!-- annotation technique in this project, see platform_comparison_log.md -->
+<View>
+  <Image name="image" value="$image"
+         zoom="true" zoomControl="true" rotateControl="false"
+         brightnessControl="true" contrastControl="true"/>
+
+  <RectangleLabels name="bbox" toName="image">
+    <Label value="fish_bbox" background="#33ddff"/>
+    <Label value="context_object" background="#b83df5"/>
+  </RectangleLabels>
+
+  <PolygonLabels name="polygon" toName="image" pointSize="small">
+    <Label value="fish_polygon" background="#fa3253"/>
+  </PolygonLabels>
+
+  <BrushLabels name="mask" toName="image">
+    <Label value="fish_mask" background="#34d1b7"/>
+  </BrushLabels>
+
+  <KeyPointLabels name="keypoint" toName="image" strokeWidth="3">
+    <Label value="snout" background="#ffcc00"/>
+    <Label value="eye" background="#ffcc00"/>
+    <Label value="dorsal_origin" background="#ffcc00"/>
+    <Label value="pelvic_origin" background="#ffcc00"/>
+    <Label value="tail_fork" background="#ffcc00"/>
+  </KeyPointLabels>
+
+  <Choices name="orientation" toName="image" perRegion="true" required="true"
+           showInLine="true" choice="single-radio">
+    <Choice value="lateral"/>
+    <Choice value="oblique"/>
+    <Choice value="axial"/>
+    <Choice value="indeterminate"/>
+  </Choices>
+
+  <Choices name="visibility" toName="image" perRegion="true" required="true"
+           showInLine="true" choice="single-radio">
+    <Choice value="full"/>
+    <Choice value="partial"/>
+    <Choice value="heavy_occlusion"/>
+  </Choices>
+
+  <Choices name="posture" toName="image" perRegion="true" required="true"
+           showInLine="true" choice="single-radio">
+    <Choice value="straight"/>
+    <Choice value="curved"/>
+    <Choice value="indeterminate"/>
+  </Choices>
+</View>

@@ -1,0 +1,204 @@
+[
+  {
+    "name": "fish_bbox",
+    "type": "rectangle",
+    "color": "#33ddff",
+    "attributes": [
+      {
+        "name": "orientation",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "lateral",
+        "values": [
+          "lateral",
+          "oblique",
+          "axial",
+          "indeterminate"
+        ]
+      },
+      {
+        "name": "visibility",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "full",
+        "values": [
+          "full",
+          "partial",
+          "heavy_occlusion"
+        ]
+      },
+      {
+        "name": "posture",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "straight",
+        "values": [
+          "straight",
+          "curved",
+          "indeterminate"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "fish_polygon",
+    "type": "polygon",
+    "color": "#fa3253",
+    "attributes": [
+      {
+        "name": "orientation",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "lateral",
+        "values": [
+          "lateral",
+          "oblique",
+          "axial",
+          "indeterminate"
+        ]
+      },
+      {
+        "name": "visibility",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "full",
+        "values": [
+          "full",
+          "partial",
+          "heavy_occlusion"
+        ]
+      },
+      {
+        "name": "posture",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "straight",
+        "values": [
+          "straight",
+          "curved",
+          "indeterminate"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "fish_mask",
+    "type": "mask",
+    "color": "#34d1b7",
+    "attributes": [
+      {
+        "name": "orientation",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "lateral",
+        "values": [
+          "lateral",
+          "oblique",
+          "axial",
+          "indeterminate"
+        ]
+      },
+      {
+        "name": "visibility",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "full",
+        "values": [
+          "full",
+          "partial",
+          "heavy_occlusion"
+        ]
+      },
+      {
+        "name": "posture",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "straight",
+        "values": [
+          "straight",
+          "curved",
+          "indeterminate"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "fish_keypoint",
+    "type": "skeleton",
+    "color": "#ff6037",
+    "attributes": [
+      {
+        "name": "orientation",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "lateral",
+        "values": [
+          "lateral",
+          "oblique",
+          "axial",
+          "indeterminate"
+        ]
+      },
+      {
+        "name": "visibility",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "full",
+        "values": [
+          "full",
+          "partial",
+          "heavy_occlusion"
+        ]
+      },
+      {
+        "name": "posture",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "straight",
+        "values": [
+          "straight",
+          "curved",
+          "indeterminate"
+        ]
+      }
+    ],
+    "sublabels": [
+      {
+        "name": "snout",
+        "type": "points",
+        "color": "#ffcc00",
+        "attributes": []
+      },
+      {
+        "name": "eye",
+        "type": "points",
+        "color": "#ffcc00",
+        "attributes": []
+      },
+      {
+        "name": "dorsal_origin",
+        "type": "points",
+        "color": "#ffcc00",
+        "attributes": []
+      },
+      {
+        "name": "pelvic_origin",
+        "type": "points",
+        "color": "#ffcc00",
+        "attributes": []
+      },
+      {
+        "name": "tail_fork",
+        "type": "points",
+        "color": "#ffcc00",
+        "attributes": []
+      }
+    ]
+  },
+  {
+    "name": "context_object",
+    "type": "any",
+    "color": "#b83df5",
+    "attributes": []
+  }
+]

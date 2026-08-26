@@ -1,0 +1,153 @@
+{
+  "classes": [
+    {
+      "title": "fish_bbox",
+      "shape": "rectangle",
+      "color": "#33DDFF",
+      "geometry_config": {}
+    },
+    {
+      "title": "fish_polygon",
+      "shape": "polygon",
+      "color": "#FA3253",
+      "geometry_config": {}
+    },
+    {
+      "title": "fish_mask",
+      "shape": "bitmap",
+      "color": "#34D1B7",
+      "geometry_config": {}
+    },
+    {
+      "title": "fish_keypoint",
+      "shape": "graph",
+      "color": "#FF6037",
+      "geometry_config": {
+        "nodes": {
+          "n0": {
+            "label": "snout",
+            "loc": [
+              0,
+              0
+            ],
+            "color": "#FFCC00"
+          },
+          "n1": {
+            "label": "eye",
+            "loc": [
+              0,
+              0
+            ],
+            "color": "#FFCC00"
+          },
+          "n2": {
+            "label": "dorsal_origin",
+            "loc": [
+              0,
+              0
+            ],
+            "color": "#FFCC00"
+          },
+          "n3": {
+            "label": "pelvic_origin",
+            "loc": [
+              0,
+              0
+            ],
+            "color": "#FFCC00"
+          },
+          "n4": {
+            "label": "tail_fork",
+            "loc": [
+              0,
+              0
+            ],
+            "color": "#FFCC00"
+          }
+        },
+        "edges": [
+          {
+            "src": "n0",
+            "dst": "n1",
+            "color": "#FF6037"
+          },
+          {
+            "src": "n1",
+            "dst": "n2",
+            "color": "#FF6037"
+          },
+          {
+            "src": "n2",
+            "dst": "n3",
+            "color": "#FF6037"
+          },
+          {
+            "src": "n3",
+            "dst": "n4",
+            "color": "#FF6037"
+          }
+        ]
+      }
+    },
+    {
+      "title": "context_object",
+      "shape": "rectangle",
+      "color": "#B83DF5",
+      "geometry_config": {}
+    }
+  ],
+  "tags": [
+    {
+      "name": "orientation",
+      "value_type": "oneof_string",
+      "values": [
+        "lateral",
+        "oblique",
+        "axial",
+        "indeterminate"
+      ],
+      "color": "#ED68A1",
+      "applicable_type": "objectsOnly",
+      "classes": [
+        "fish_bbox",
+        "fish_polygon",
+        "fish_mask",
+        "fish_keypoint"
+      ]
+    },
+    {
+      "name": "visibility",
+      "value_type": "oneof_string",
+      "values": [
+        "full",
+        "partial",
+        "heavy_occlusion"
+      ],
+      "color": "#ED68A1",
+      "applicable_type": "objectsOnly",
+      "classes": [
+        "fish_bbox",
+        "fish_polygon",
+        "fish_mask",
+        "fish_keypoint"
+      ]
+    },
+    {
+      "name": "posture",
+      "value_type": "oneof_string",
+      "values": [
+        "straight",
+        "curved",
+        "indeterminate"
+      ],
+      "color": "#ED68A1",
+      "applicable_type": "objectsOnly",
+      "classes": [
+        "fish_bbox",
+        "fish_polygon",
+        "fish_mask",
+        "fish_keypoint"
+      ]
+    }
+  ]
+}

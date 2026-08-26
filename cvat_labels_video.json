@@ -1,0 +1,49 @@
+[
+  {
+    "name": "fish_track",
+    "type": "rectangle",
+    "color": "#33ddff",
+    "attributes": [
+      {
+        "name": "orientation",
+        "mutable": true,
+        "input_type": "select",
+        "default_value": "lateral",
+        "values": [
+          "lateral",
+          "oblique",
+          "axial",
+          "indeterminate"
+        ]
+      },
+      {
+        "name": "visibility",
+        "mutable": true,
+        "input_type": "select",
+        "default_value": "full",
+        "values": [
+          "full",
+          "partial",
+          "heavy_occlusion"
+        ]
+      },
+      {
+        "name": "posture",
+        "mutable": true,
+        "input_type": "select",
+        "default_value": "straight",
+        "values": [
+          "straight",
+          "curved",
+          "indeterminate"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "context_object",
+    "type": "any",
+    "color": "#b83df5",
+    "attributes": []
+  }
+]

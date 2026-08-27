@@ -248,6 +248,11 @@ following it inside that window sees a dataset with no description at all** — 
 "abandoned project" impression the description exists to remove. **Roboflow shows no pending or
 processing state; the page simply asserts the old content as current.**
 
+**Compare the CVAT entry in this log:** *"CVAT caches exports. A file requested as final came back
+byte-identical to one two rounds old, same MD5, different filename, no warning."* **Two platforms,
+two silent caches, both discovered only because output was checked against expectation rather than
+trusted.** The pair is worth more than either alone.
+
 #### Follow-on 2 — the social preview ignores the published description
 
 After publishing, the page's `meta-description` and `og:description` **still read**

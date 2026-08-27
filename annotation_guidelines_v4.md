@@ -4,8 +4,10 @@ Version 5.3 — written before annotation begins, as guidelines should be.
 Author: Arid Ahsan Dodul
 Dataset: UnderWater Fish Detection (Roboflow Universe), v6 — https://universe.roboflow.com/underwater-fish/underwater-fish-detection-izi1l — CC BY 4.0.
   Attribution is a licence condition. Annotations in this portfolio are my own, created from scratch; the dataset's original labels were not used.
-Platforms: **CVAT — run complete and delivered.** Roboflow, Supervisely, Label Studio, Labelbox and
-  SuperAnnotate are **planned comparison runs, not yet performed**; the empty columns in
+Platforms: **CVAT — run complete and delivered. Roboflow — run complete 26 Aug 2026**, 5 frames,
+  3 classes, 14 annotations, COCO Segmentation exported and verified against the CVAT export,
+  public dataset on Universe, **nine findings logged**. Supervisely, Label Studio, Labelbox and
+  SuperAnnotate remain **planned comparison runs, not yet performed**; the empty columns in  
   `platform_comparison_log.md` are where their findings will go.
 Sample: 10 images, identical across every run
 Annotation types: bounding box, polygon, keypoint, semantic segmentation
@@ -277,7 +279,18 @@ Stop and log rather than deciding alone when:
 
 Roboflow sits second because its free Public plan publishes to Roboflow Universe, so your public portfolio link exists early. Supervisely sits third because its free Community tier is confirmed open and it handles segmentation well, making it the most likely of the commercial tools to complete a full four-type run.
 
-**Supervisely bonus experiment.** Supervisely ships SAM2 for model-assisted segmentation. On image 9, segment manually. On image 10, use SAM2 and correct its output. Record both times and both error counts. "Model-assisted labeling was X% faster and introduced Y kind of error" is a finding almost no portfolio contains, and it is a question hiring teams are actively asking in 2026.
+**Supervisely bonus experiment.** Supervisely ships SAM2 for model-assisted segmentation. Repeating the assisted-labelling measurement there turns a single-platform result into a cross-platform one, which is the question hiring teams are actively asking in 2026.
+
+> **Corrected 27 August 2026. The original instruction here was to segment image 9 manually and image 10 with SAM2. Do not do that.** The CVAT run tested it and `platform_comparison_log.md` records why it fails: comparing manual on 09 against the model on 10 gives **13.5×**, which is frame difficulty reported as model performance. Running both methods on **the same frame** gives the honest **9.4×**. The original wording predates that finding.
+
+**Design.** Segment **09 manually**, then **09 with SAM2**, then **10 with SAM2**. Same frame, same fish, same boundary for the paired comparison; the second model frame gives the easy-versus-hard spread. Record every time and every correction count.
+
+**Controls, which must match the CVAT run or the two platforms are not comparable:**
+
+- Familiarisation pass first on **`03_bbox`**, a frame used in no measurement, and delete that practice mask. Measured frames are approached cold.
+- The clock runs from **tool selection through final correction**, not from first click.
+- Prompt SAM2 with a **bounding box only**. Disable any label-name-as-text-prompt option: `fish_mask` is a schema artifact, not a description of the animal, and it would confound a poor result.
+- Leave **hole-filling off**, so holes remain visible and countable rather than silently repaired.
 
 **Hold constant:** same 10 images, same type assignment per image, same class and attribute names, same order of work.
 

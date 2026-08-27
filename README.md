@@ -13,7 +13,7 @@ Most annotation portfolios show finished labels. This one shows the decisions.
 
 Ten frames of marine fish - bigeye trevally, mojarra and northwest black bream - annotated with
 **bounding boxes, polygons, keypoint skeletons and semantic masks**, under a guideline document
-taken through **nine revisions**, each revision traceable to a specific frame that broke the
+taken through **sixteen revisions**, ten of them traceable to a specific frame that broke the
 previous version.
 
 **30 annotation records across 10 images. 29 distinct objects** - one frame carries the same fish

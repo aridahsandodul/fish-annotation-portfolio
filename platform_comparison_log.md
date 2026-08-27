@@ -191,7 +191,14 @@ annotation tool; **Roboflow hands you a pipeline in which manual annotation is t
 be eliminated.** Neither posture is wrong. **They are aimed at different people, and only one of them
 is aimed at the person doing the labelling.**
 
-### Roboflow, seventh finding — the public description cannot be edited, and the platform's own agent could not find the control
+### Roboflow, seventh finding — the description editor was not locatable, and the platform's own agent was working from outdated documentation
+
+> **RESOLVED 27 August 2026, and the heading was corrected at the same time.** This finding
+> originally read *"the public description cannot be edited."* **That claim was too strong: the
+> editor exists and the description is now published.** What the evidence below actually supports is
+> that the control could not be found from the places a user would look, and that Roboflow's own
+> assistant sent the user to an interface that no longer exists. **That part stands unchanged.**
+> Resolution and two follow-on observations are at the end of this entry.
 
 **26 August 2026. The Universe page reads "A description for this project has not been published
 yet." The editor was not locatable.**
@@ -214,6 +221,43 @@ the Universe page declares the licence, **but the source attribution required by
 public home.** Attribution is a licence condition, not a courtesy. **Outstanding, carried forward:
 either locate the editor, raise it with Roboflow support, or place the attribution wherever the
 dataset is linked from.**
+
+#### Resolution, 27 August 2026
+
+**The editor was found and the description is published.** The CC BY 4.0 attribution now has a public
+home on the dataset page, naming UnderWater Fish Detection v6 as the source. **The outstanding item
+above is closed.** The finding about the vendor's assistant is unaffected: it was wrong, it was wrong
+in a way it could not recover from, and it said so.
+
+#### Follow-on 1 — the public page served stale content for at least half an hour, silently
+
+**Measured, with the bound stated rather than a false precision.**
+
+| Time | Observation |
+|---|---|
+| ~04:12 | Save time, inferred from the page's own *"Updated an hour ago"* read at 05:12 |
+| **04:45** | **An independent fetch still returned *"A description for this project has not been published yet"* — and the stale *"Updated 9 hours ago"* timestamp alongside it** |
+| 05:12 | The same fetch returns the full description |
+
+**A query-string cache-buster did not defeat it**, so the caching is server or CDN side and keyed on
+the canonical path. *"An hour ago"* is coarse, so **at least ~33 minutes is a floor, not a
+measurement.**
+
+**Why this is more than an annoyance.** The dataset URL is already published elsewhere. **Anyone
+following it inside that window sees a dataset with no description at all** — precisely the
+"abandoned project" impression the description exists to remove. **Roboflow shows no pending or
+processing state; the page simply asserts the old content as current.**
+
+#### Follow-on 2 — the social preview ignores the published description
+
+After publishing, the page's `meta-description` and `og:description` **still read**
+*"5 open source aquaculture-fish-segmentation images. aquaculture-fish-segmentation dataset by
+arid-dodul."* Auto-generated from the project name, unchanged by the description.
+
+**Every link preview of this URL therefore shows the generic string**, not the written description.
+For a dataset used as a portfolio link that is the first impression, and **it is not reachable from
+the project settings** so far as this check could determine. **Recorded as observed behaviour, not as
+a limitation proven exhaustive.**
 
 ### Roboflow export audit — 26 August 2026, COCO Segmentation, version v1
 

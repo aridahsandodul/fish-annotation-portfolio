@@ -6,7 +6,7 @@ Dataset: UnderWater Fish Detection (Roboflow Universe), v6 — https://universe.
   Attribution is a licence condition. Annotations in this portfolio are my own, created from scratch; the dataset's original labels were not used.
 Platforms: **CVAT — run complete and delivered. Roboflow — run complete 26 Aug 2026**, 5 frames,
   3 classes, 14 annotations, COCO Segmentation exported and verified against the CVAT export,
-  public dataset on Universe, **nine findings logged**. Supervisely, Label Studio, Labelbox and
+  public dataset on Universe, **seven numbered findings, a three-defect export audit and two follow-on observations logged**. Supervisely, Label Studio, Labelbox and
   SuperAnnotate remain **planned comparison runs, not yet performed**; the empty columns in  
   `platform_comparison_log.md` are where their findings will go.
 Sample: 10 images, identical across every run

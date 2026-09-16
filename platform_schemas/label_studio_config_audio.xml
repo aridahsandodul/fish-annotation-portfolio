@@ -1,0 +1,44 @@
+<View>
+
+  <Header value="Dyadic conversation, speech segments"/>
+
+  <Labels name="segment" toName="audio">
+    <Label value="speaker_a"     background="#4363d8"/>
+    <Label value="speaker_b"     background="#3cb44b"/>
+    <Label value="overlap"       background="#e6194b"/>
+    <Label value="non_speech"    background="#9a6324"/>
+    <Label value="unintelligible" background="#911eb4"/>
+  </Labels>
+
+  <Audio name="audio" value="$audio" zoom="true" volume="true" speed="true"/>
+
+  
+  <Choices name="boundary" toName="audio"
+           perRegion="true" required="true"
+           showInLine="true" choice="single-radio">
+    <Choice value="crisp"/>
+    <Choice value="tapered"/>
+    <Choice value="overlapped"/>
+  </Choices>
+
+  
+  <Choices name="speech_clarity" toName="audio"
+           perRegion="true" required="true"
+           whenLabelValue="speaker_a,speaker_b,overlap"
+           showInLine="true" choice="single-radio">
+    <Choice value="clear"/>
+    <Choice value="degraded"/>
+    <Choice value="partly_unrecoverable"/>
+  </Choices>
+
+  
+  <Choices name="turn_type" toName="audio"
+           perRegion="true" required="true"
+           whenLabelValue="speaker_a,speaker_b"
+           showInLine="true" choice="single-radio">
+    <Choice value="substantive"/>
+    <Choice value="backchannel"/>
+    <Choice value="question"/>
+  </Choices>
+
+</View>

@@ -1,6 +1,10 @@
 <!-- Label Studio labeling config - generated from cvat_labels.json -->
 <!-- brightness/contrast controls enabled on purpose: display adjustment is -->
 <!-- annotation technique in this project, see platform_comparison_log.md -->
+<!-- v2, 2 September 2026: whenLabelValue added to all three Choices blocks so the -->
+<!-- attributes attach to the fish classes only and NOT to context_object, matching -->
+<!-- CVAT (which declares zero attributes for context_object) and Supervisely -->
+<!-- (which scopes its tags to the four fish classes). -->
 <View>
   <Image name="image" value="$image"
          zoom="true" zoomControl="true" rotateControl="false"
@@ -28,6 +32,7 @@
   </KeyPointLabels>
 
   <Choices name="orientation" toName="image" perRegion="true" required="true"
+           whenLabelValue="fish_bbox,fish_polygon,fish_mask,snout,eye,dorsal_origin,pelvic_origin,tail_fork"
            showInLine="true" choice="single-radio">
     <Choice value="lateral"/>
     <Choice value="oblique"/>
@@ -36,6 +41,7 @@
   </Choices>
 
   <Choices name="visibility" toName="image" perRegion="true" required="true"
+           whenLabelValue="fish_bbox,fish_polygon,fish_mask,snout,eye,dorsal_origin,pelvic_origin,tail_fork"
            showInLine="true" choice="single-radio">
     <Choice value="full"/>
     <Choice value="partial"/>
@@ -43,6 +49,7 @@
   </Choices>
 
   <Choices name="posture" toName="image" perRegion="true" required="true"
+           whenLabelValue="fish_bbox,fish_polygon,fish_mask,snout,eye,dorsal_origin,pelvic_origin,tail_fork"
            showInLine="true" choice="single-radio">
     <Choice value="straight"/>
     <Choice value="curved"/>

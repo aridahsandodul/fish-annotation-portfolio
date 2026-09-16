@@ -1,0 +1,49 @@
+<View>
+
+  <Header value="Aquaculture abstract, entity spans"/>
+
+  <View style="background:#f8f8f8; padding:6px; border-radius:4px; margin-bottom:8px">
+    
+  <Text name="meta" value="$citation"/>
+  </View>
+
+  
+  <Text name="text" value="$text" granularity="symbol"/>
+
+  <Labels name="entity" toName="text" showInline="true">
+    <Label value="species"     background="#e6194b"/>
+    <Label value="water_param" background="#3cb44b"/>
+    <Label value="measurement" background="#4363d8"/>
+    <Label value="equipment"   background="#f58231"/>
+    <Label value="condition"   background="#911eb4"/>
+  </Labels>
+
+  
+  <Choices name="assertion" toName="text"
+           perRegion="true" required="true"
+           showInLine="true" choice="single-radio">
+    <Choice value="reported"/>
+    <Choice value="background"/>
+  </Choices>
+
+  
+  <Choices name="name_form" toName="text"
+           perRegion="true" required="true"
+           whenLabelValue="species"
+           showInLine="true" choice="single-radio">
+    <Choice value="scientific"/>
+    <Choice value="common"/>
+    <Choice value="abbreviation"/>
+  </Choices>
+
+  
+  <Choices name="value_type" toName="text"
+           perRegion="true" required="true"
+           whenLabelValue="measurement"
+           showInLine="true" choice="single-radio">
+    <Choice value="point"/>
+    <Choice value="range"/>
+    <Choice value="mean_with_dispersion"/>
+  </Choices>
+
+</View>

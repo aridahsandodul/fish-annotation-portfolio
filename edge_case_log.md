@@ -19,7 +19,7 @@ Fill these in **as they come up**, not at the end of the batch.
 
 | **1.** |
 | :---- |
-| ![](ScreenShots/Screenshot_1.jpg) |
+| ![](ScreenShots/cvat_bbox_attributes_per_instance_bbox4.jpg) |
 | *01_bbox — `FISH_BBOX 4`, 193.4 x 208.8 px. The tail-on instance that raised the question.* |
 | **Image:** 01_bbox.jpg — the large tail-on fish, upper centre of frame (`fish_bbox`, 195 x 208 px) |
 | **Question:** This fish is facing away from the camera, tail toward us, so its head isn't visible at all. But nothing is in front of it — it's the fish's own body hiding its head. `visibility: full` is defined as the whole body being resolvable, and the head isn't resolvable here. Does that make it `partial`, or is `full` only about things blocking the view? |
@@ -31,19 +31,19 @@ Fill these in **as they come up**, not at the end of the batch.
 
 | **2.** |
 | :---- |
-| ![](ScreenShots/Screenshot_2.jpg) |
-| *01_bbox — `FISH_BBOX 2`, 123.8 x 164.8 px. One of the five axial instances now carrying `posture: indeterminate`.* |
-| **Image:** 01_bbox.jpg — every instance in the frame carrying `orientation: axial` (5 of 7) |
+| ![](ScreenShots/cvat_bbox_attributes_per_instance_bbox2.jpg) |
+| *01_bbox — `FISH_BBOX 2`, 123.8 x 164.8 px. One of the five instances now carrying `posture: indeterminate`.* |
+| **Image:** 01_bbox.jpg — every instance in the frame carrying `orientation: axial` (5 of 7 when this entry was written; **4 of 7 in the delivered export**, after entry 4 reclassified one instance from `axial` to `indeterminate`) |
 | **Question:** `posture` records whether the body is straight or curved. On an axial fish the body axis points at the camera, so a curve is foreshortened to almost nothing and I can't separate a straight fish from a bent one. I've been leaving `straight`, which is the tool's default value rather than something I observed. Right now 7 of 7 instances in this frame say `posture: straight`. Should axial fish get `straight`, or `indeterminate`? |
 | **My read:** `indeterminate`. `straight` is a positive claim about the animal and I can't support it on a fish pointing at the lens. It is also the default, so leaving it is indistinguishable in the export from never opening the attribute panel at all. An attribute that reads the same on every instance carries no information, which is a worse outcome than not collecting it. |
-| **Decision taken:** Made it a rule rather than five judgment calls: **`orientation: axial` implies `posture: indeterminate`.** Applied to all five axial instances in the frame. `oblique` stays case-by-case, since a partially foreshortened body still shows curvature. Stated as a cross-attribute constraint so it can be verified by query — "any instance where `orientation` is `axial` and `posture` is not `indeterminate`" — rather than by eye. |
+| **Decision taken:** Made it a rule rather than a judgment call per instance: **`orientation: axial` implies `posture: indeterminate`.** Applied to every axial instance in the frame. `oblique` stays case-by-case, since a partially foreshortened body still shows curvature. Stated as a cross-attribute constraint so it can be verified by query — "any instance where `orientation` is `axial` and `posture` is not `indeterminate`" — rather than by eye. |
 | **Guideline gap?** **Yes.** v4.3 defines `posture` independently of `orientation` and never says the two interact. Proposed for v4.4: *"Where `orientation` is `axial`, `posture` is `indeterminate`. Body curvature is not measurable along the optical axis. Any instance with `orientation: axial` and any other posture value is a verification failure."* Pending in one respect — a reviewer who wanted posture on axial fish would have to define it from fin geometry instead, which is a different rule and a slower one. |
 
 ---
 
 | **3.** |
 | :---- |
-| ![](ScreenShots/Screenshot_3.jpg) |
+| ![](ScreenShots/cvat_bbox_smallest_instance_31x71px.jpg) |
 | *01_bbox — `FISH_BBOX 7`, 31.6 x 71.0 px. The smallest annotated instance in the batch; `visibility` corrected from `heavy_occlusion` to `full`.* |
 | **Image:** 01_bbox.jpg — the smallest annotated instance, 31.6 x 71.0 px, lower right of the group |
 | **Question:** This fish is degraded by the water column, not hidden by anything. Nothing is in front of it and it sits well inside the frame. I recorded `visibility: heavy_occlusion` because it was the closest value available, but that's wrong under v4.3 — visibility records only what an external occluder or the frame edge takes away, and turbidity is neither. The schema offers `full`, `partial`, `heavy_occlusion` and no way to say "present but degraded." What do I record? |
@@ -55,9 +55,9 @@ Fill these in **as they come up**, not at the end of the batch.
 
 | **4.** |
 | :---- |
-| ![](ScreenShots/Screenshot_4.jpg) |
+| ![](ScreenShots/cvat_edgecase_axial_41x101_vs_indeterminate_67x110.jpg) |
 | *01_bbox — `FISH_BBOX 5` (41.9 x 101.4) and `FISH_BBOX 6` (67.1 x 110.3). The narrow silhouette reads `axial`; the rounded blur has no long axis and reads `indeterminate`.* |
-| ![](ScreenShots/Screenshot_5.jpg) |
+| ![](ScreenShots/cvat_edgecase_lateral_58x63_vs_axial_31x71.jpg) |
 | *01_bbox — `FISH_BBOX 7` (31.6 x 71.0) and `FISH_BBOX 3` (58.6 x 63.0). The 58.6 px instance retains a readable body line and stays `lateral / straight`.* |
 | **Image:** 01_bbox.jpg — the four deepest instances in the frame, 58.6 x 63.0 down to 31.6 x 71.0 px |
 | **Question:** Everything past the third instance sits deeper in the water column and is soft. All four are above the 12 x 12 px floor and all four are recognisable as fish. But I had given them `axial` or `lateral` plus `posture: straight`, and on a second look those were reads of the box I had already drawn rather than of the animal inside it. The threshold rule says don't annotate what I can't assign confidently; it also treats `indeterminate` as a real assignment when it reflects a limit of the image. So do these clear the threshold with `indeterminate` values, or do they come out and get counted? |
@@ -69,7 +69,7 @@ Fill these in **as they come up**, not at the end of the batch.
 
 | **5.** |
 | :---- |
-| ![](ScreenShots/Screenshot_6.jpg) |
+| ![](ScreenShots/cvat_context_object_measuring_bar_720x350.jpg) |
 | *02_bbox — `CONTEXT_OBJECT 9`, the survey pole and scale bar. Every pneumatophore around it is natural structure and deliberately unannotated.* |
 | **Image:** 02_bbox.jpg — `context_object`, and by implication every frame in the set |
 | **Question:** Frames 1 and 2 are both full of mangrove root. In frame 2 I labelled the survey pole and its scale bar as `context_object` and labelled none of the roots, and I want to state why before I do it another eight times. The class is defined as "netting, cage structure, feed pellets or clouds, equipment, measurement markers" — every example is something a person put there. Roots are not on the list, but they are structure, they occlude fish, and someone reading the list quickly could reasonably call them structure. Which are they? |
@@ -81,7 +81,7 @@ Fill these in **as they come up**, not at the end of the batch.
 
 | **6.** |
 | :---- |
-| ![](ScreenShots/Screenshot_7.jpg) |
+| ![](ScreenShots/cvat_polygon_dense_vertices_polygon13.jpg) |
 | *04_polygon — `FISH_POLYGON 13`, the *Caranx*, 57 vertices. Density follows curvature: dense at the caudal fork and the dorsal notch, sparse along the smooth flank.* |
 | **Image:** 04_polygon.jpg — the large *Caranx*, upper right (`fish_polygon`) |
 | **Question:** The guidelines set a vertex budget of 12 to 25 per fish. Tracing this one honestly took about 50. It has a deeply forked caudal, a notched and falcate second dorsal, and a curved ventral profile — every one of those is a direction change that needs a point. To come in under 25 I would have had to round off the caudal fork. Is my polygon over-traced, or is the budget wrong? |
@@ -93,7 +93,7 @@ Fill these in **as they come up**, not at the end of the batch.
 
 | **7.** |
 | :---- |
-| ![](ScreenShots/Screenshot_8.jpg) |
+| ![](ScreenShots/cvat_below_threshold_candidate_blurred_fish.jpg) |
 | *04_polygon — the instance lying behind the *Caranx*, shown unannotated. Declined under the boundary-ownership test: most of the outline available to trace belongs to the fish in front of it.* |
 | **Image:** 04_polygon.jpg — the fish lying directly behind the large *Caranx* |
 | **Question:** This fish is heavily occluded by the large *Caranx* in front of it. Only a strip of belly and part of the tail are visible. It is well above the size floor and I can read its orientation from the strip, so it arguably clears the threshold — `heavy_occlusion` exists as a value, which implies occluded fish are meant to be annotated rather than skipped. But when I started tracing it, most of the outline I was drawing was not this fish's edge. Does it get a polygon? |
@@ -105,7 +105,7 @@ Fill these in **as they come up**, not at the end of the batch.
 
 | **8.** |
 | :---- |
-| ![](ScreenShots/Screenshot_9.jpg) |
+| ![](ScreenShots/cvat_below_threshold_candidate_unresolvable_blob.jpg) |
 | *04_polygon — the dark patch, shown unannotated. Recognisable as an object, but no fin, tail, eye or edge at any zoom. Counted, not traced.* |
 | **Image:** 04_polygon.jpg — a featureless dark patch deeper in the water column (traced, then deleted) |
 | **Question:** A soft dark patch deeper in the water column. It is recognisably a fish and it is well above the size floor, but it has no resolvable edge anywhere — no fin margin, no tail fork, no eye. I traced a 13-point oval around it and gave it `lateral`, `full`, `straight`. Then I compared it to the rounded blur in frame 1, which was the same visual situation, and there I had correctly used `indeterminate`. Which of the two is right? |
@@ -117,11 +117,11 @@ Fill these in **as they come up**, not at the end of the batch.
 
 | **9.** |
 | :---- |
-| ![](ScreenShots/Screenshot_10.jpg) |
+| ![](ScreenShots/cvat_keypoint_skeleton_with_context_object.jpg) |
 | *07_keypoint — `CONTEXT_OBJECT 22` as a polygon on a keypoint frame, alongside the fish skeleton. The image split governs `fish` only.* |
 | **Image:** 07_keypoint.jpg — the survey pole and light assembly |
 | **Question:** The image split assigns an annotation type to each frame, and I have been applying it to everything in the frame — boxes on the context objects in 02 and 03, polygons on them in 05 and 06. Frame 07 is a keypoint frame. Following that pattern means putting a five-point fish skeleton on a survey pole, with landmarks called `snout` and `tail_fork`. That is obviously wrong, but the guidelines do not say it is wrong, and the same problem arrives again on 08, 09 and 10. What does the frame's assigned type actually apply to? |
-| **My read:** To `fish` only. The split exists to demonstrate four annotation types on the same subject across six platforms, and the fish are that subject. `context_object` is scene information, not part of the comparison, so forcing it to follow the frame type serves nothing — and on a keypoint frame it produces an annotation with no meaning at all. I had been reading a rule about the *experiment* as a rule about the *frame*. |
+| **My read:** To `fish` only. The split exists to demonstrate four annotation types on the same subject across five completed image platforms, and the fish are that subject. `context_object` is scene information, not part of the comparison, so forcing it to follow the frame type serves nothing — and on a keypoint frame it produces an annotation with no meaning at all. I had been reading a rule about the *experiment* as a rule about the *frame*. |
 | **Decision taken:** The image split governs the `fish` class only. `context_object` takes whatever shape bounds it sensibly, which for a thin diagonal pole assembly is a polygon — a box around one is mostly water, as noted back on 02. Frames 02 and 03 keep their boxes: a box is the frame's own assigned type there and is defensible on its own terms. Recorded as a documented inconsistency rather than corrected, because redoing them would change nothing about what the data shows. |
 | **Guideline gap?** **Yes.** Proposed for v5.0: *"The image split assigns an annotation type per frame for the `fish` class only. `context_object` is not part of the type comparison and takes whatever shape bounds it sensibly — normally a polygon for thin or diagonal objects, a box for compact ones. A frame's assigned type never requires a geometrically meaningless annotation; where it appears to, the rule is being applied past its scope."* |
 
@@ -129,7 +129,7 @@ Fill these in **as they come up**, not at the end of the batch.
 
 | **10.** |
 | :---- |
-| ![](ScreenShots/Screenshot_11.jpg) |
+| ![](ScreenShots/cvat_keypoint_skeleton_five_landmarks_linked.jpg) |
 | *08_keypoint — `FISH_KEYPOINT 29`, all five landmarks after correction. `DORSAL_ORIGIN` at the first dorsal spine, `PELVIC_ORIGIN` on the anterior ventral fin.* |
 | **Image:** 08_keypoint.jpg — the *Acanthopagrus* over rock; `dorsal_origin` and `pelvic_origin` |
 | **Question:** Two of the five landmarks took three rounds to settle, for two different reasons. First, the guidelines define `dorsal_origin` as "where the dorsal fin meets the body, front edge" — I read that as anywhere along the fin base and placed it mid-fin, when the intended meaning is the fin's **anterior insertion**, the point nearest the snout where the first spine enters the body. Second, `pelvic_origin`: on this fish both ventral fins are black and sit in shadow, and I initially placed the point on the **anal** fin. Neither is a hard image — this fish is the best-lit in the whole set. So why did it take three passes? |
@@ -141,7 +141,7 @@ Fill these in **as they come up**, not at the end of the batch.
 
 | **11.** |
 | :---- |
-| ![](ScreenShots/Screenshot_12.jpg) |
+| ![](ScreenShots/cvat_context_object_scale_bar_polyline.jpg) |
 | *09_segmentation — `CONTEXT_OBJECT 38` with the fish mask visible. Annotated despite touching no fish, resolving the conflict with the old free-floating-equipment exemption.* |
 | **Image:** 09_segmentation.jpg — the survey pole and scale bar |
 | **Question:** Two rules in the guidelines point opposite ways here. The segmentation section says `context_object` is painted only where equipment overlaps or touches a fish, and that free-floating equipment elsewhere may be left as background. This pole touches nothing. But v5.0 decoupled `context_object` from the frame's annotation type, and I have annotated this same pole in every frame it appears — 02, 03, 05, 06, 07, 08. Skip it or annotate it? |
@@ -153,17 +153,25 @@ Fill these in **as they come up**, not at the end of the batch.
 
 | **12.** |
 | :---- |
-| ![](ScreenShots/Screenshot_13.jpg) |
-| *04_polygon — `FISH_POLYGON 12` and `15` at **raised gamma**. Both fish are invisible at default rendering and plainly resolvable here; this is the display setting they were traced at.* |
+| ![](ScreenShots/cvat_polygon_visibility_partial_vs_full.jpg) |
+| *04_polygon: two faint fish reviewed at adjusted display settings. Both are poorly visible at default rendering and resolvable at the settings used for annotation.* |
 | **Image:** 04_polygon.jpg — two faint instances deep in the water column. **This entry records a reviewer error, not an annotator one.** |
-| **Question:** Two small, faint fish were traced after dropping display gamma to expose them. On review they were reported as unsupported — outlines around near-uniform dark green, with nothing visible inside. The reviewer recommended deleting them and counting them below threshold instead, on the grounds that a polygon around an invisible object discredits the rest of the file. Were they invented? |
-| **My read:** No. The screenshots sent for review were at the **diagnostic low gamma** used to hunt for objects, which crushes the mid-tones the fish actually occupy. At normal display both are plainly visible — body, fin structure, and a root crossing the left side of one of them. The review was measuring the rendering, not the annotation. |
+| **Question:** Two small, faint fish were traced using adjusted display settings. A review performed under different settings reported them as unsupported and recommended deletion. Were they invented? |
+| **My read:** No. The review screenshots did not match the display settings used for annotation. At comparable settings, body, fin structure and an occluding root are visible. The review measured the rendering difference rather than the annotation. |
 | **Decision taken:** Both kept. Attributes settled at `orientation: lateral`, `visibility: partial` (a root genuinely crosses them), `posture: indeterminate` — the body line is not readable well enough to claim `straight`, which is the same correction made in entry 2. The reviewer's objection was withdrawn. Recorded rather than quietly dropped, because **deleting work because it was challenged, rather than because it was wrong, is how good data gets destroyed.** |
 | **Guideline gap?** **Yes, and it is about the review process rather than the annotation rules.** Proposed for v5.3: *"Review must be conducted at display settings comparable to those used for annotation. A reviewer working at a different brightness, contrast or gamma will generate false defects — reporting well-supported annotations as unsupported — and those false defects are expensive, because the natural response to a challenge is to delete. Where an annotation was produced using display adjustment, that fact is recorded with it so a reviewer knows to match it."* Also worth noting: this occurred **twice in the same frame**, and both times the reviewer's confidence was unaffected by being wrong the first time. |
 
----
+| **13.** |
+| :---- |
+| *07_keypoint and 08_keypoint — `dorsal_origin` on both frames. **This entry was not produced by an annotator noticing something. It was produced by a measurement**, when the Supervisely run was compared landmark-by-landmark against the CVAT run.* |
+| **Image:** 07_keypoint.jpg and 08_keypoint.jpg — the `dorsal_origin` landmark, both instances |
+| **Question:** Ten landmarks were placed twice, 24 days apart, cold, on two different platforms by the same annotator. Four of the five landmark types reproduced within a few pixels. `dorsal_origin` did not. Is that a placement error, or does the guideline permit it? |
+| **The measurement, which is the whole entry:** `eye` **2.5 px** · `tail_fork` **3.9 px** · `snout` **4.3 px** · `pelvic_origin` **5.6 px** · **`dorsal_origin` 13.8 px**. Mean of the other four: **4.1 px**. **`dorsal_origin` is 3.4x worse than the mean of its peers, and it is the worst landmark on BOTH frames independently** — 8.6 px on `07` and 19.0 px on `08`. Overall mean 6.0 px, median 4.2 px; as a share of fish span, 1.10% and 1.28%. |
+| **My read:** Not a placement error. **It is the loosest definition in the schema.** `snout`, `eye` and `tail_fork` are points a second annotator can find without judgment — the tip, the pupil, the notch. `pelvic_origin` is anchored to a named fin. **`dorsal_origin` is defined as "at the first dorsal spine", and on a fish whose dorsal fin rises gradually from the body line there is no single pixel the phrase selects.** The spread is the definition's, not the hand's. |
+| **Decision taken:** **The landmarks are kept as placed on both platforms. Nothing is re-placed to make the numbers agree** — that would be fitting the annotation to the measurement, which is the failure this whole document exists to avoid. **The finding is recorded as a guideline defect instead.** |
+| **Guideline gap?** **Partly.** The Label Studio run weakened the original conclusion: `dorsal_origin` reproduced at 4.0 px, and all ten landmarks averaged 4.2 px. The Supervisely outlier remains measured, but one discrepant run and two agreeing runs do not prove the definition caused it. A clearer v5.4 wording remains proposed: place `dorsal_origin` where the leading edge of the first dorsal spine meets the dorsal body line. Practice across repeated runs remains a confound. |
 
-*Add rows as needed. Target 8 to 12. Fewer than 6 means ambiguity was being resolved silently.*
+---
 
 **Four of these came out of frame 1 alone.** That is expected rather than alarming: frame 1 is the densest image in the set and the first one worked, so it is where the schema meets reality for the first time. Entries 2 and 3 are gaps the guidelines genuinely had. Entry 4 is closer to an error of my own — the rules covered it and I defaulted instead of reading. Both kinds belong here; conflating them would be the dishonest version of this document.
 
@@ -279,27 +287,30 @@ Per the threshold rule, fish that can't carry all three attributes aren't annota
 
 ---
 
-## Part 4 — Verification pass (once per platform)
+## Part 4 - Verification pass
 
-Run before calling a batch done. Record zeros too — a clean line is evidence.
+Verification was performed against exports. Unknowns remain explicit.
 
-| Check | Looking for | CVAT | Roboflow | Supervisely | Label Studio | Labelbox | SuperAnnotate |
-|---|---|---|---|---|---|---|---|
-| Missing attributes | Any `fish` lacking orientation, visibility or posture | **0 / 22** ✅ | | | | | |
-| Undersized | Anything below 12 x 12 px | **1 found, deleted** — 7 x 33 px sliver on 04 | | | | | |
-| Loose geometry | Padding around the animal, or fins and tail clipped | **0 confirmed** — 2 reviewer flags raised and both withdrawn | | | | | |
-| Class errors | Equipment labeled `fish`, or fish labeled `context_object` | **0** ✅ | | | | | |
-| Reflections labeled | Shadows or surface reflections annotated as animals | **0** ✅ — one candidate on 01 examined, identified as rock reflection | | | | | |
-| Missed fish | Re-scan left to right, top to bottom | **1 found** — a fourth instance added to 04 during the sweep | | | | | |
-| **Attribute drift** | Same situation labeled differently early versus late | **1 found, corrected** — entry 8 | | | | | |
-| Cross-attribute constraint | `orientation: axial` implies `posture: indeterminate` | **0 violations** ✅ | | | | | |
-| Keypoint order | Points out of the fixed 5-point sequence | **0** — enforced by the tool, not by the annotator | | | | | |
-| Occluded flags | Hidden keypoints guessed rather than flagged | **rule never exercised** — see note | | | | | |
-| Mask overlap | No two masks sharing pixels | **1 deliberate exception** — see note | | | | | |
+| Check | CVAT | Roboflow | Supervisely | Label Studio | Labelbox |
+| --- | --- | --- | --- | --- | --- |
+| Missing attributes | 0 of 22 | n/a, attributes unsupported | 0 of 22 | 0 of 29 fish-class regions | 0 of 19 fish objects |
+| Counts | 10 images, 30 records | 5 images, 14 records | 10 images, 30 objects | 10 images, 37 regions | 10 images, 37 normalized objects |
+| Cross-attribute constraint | 0 violations | n/a | 0 violations | 0 violations | 0 axial-plus-straight violations |
+| Keypoint completeness | 2 skeletons, 10 landmarks | not run | 2 graphs, 10 named nodes | 10 flat landmarks; transient duplicate/missing identity corrected before final export | 10 flat landmarks; identity complete, grouping unavailable |
+| Export fidelity | Datumaro complete; COCO drops 2 skeletons | Geometry complete; 6 package defects | Native export complete | Native export complete | NDJSON complete against normalized CVAT counts; two masks downloaded locally |
+| Export freshness | Stale cache observed | Export cache not observed; public page was stale | No stale output observed across 5 exports; absence not proved | One export only, untested | One export only; caching untested |
 
 ### CVAT verification notes
 
-**Final delivered state: 22 fish instances, 8 context objects, 30 annotations across 10 frames.** All eight checks below were run in code against the delivered Datumaro file — `cvat_fish_run_2026-08-06_DATUMARO.zip`, MD5 `dd0da750…` — not against an intermediate export and not by eye.
+**Final delivered state: 22 fish instances, 8 context objects, 30 annotations across 10 frames.** All eight checks below were run in code against the delivered Datumaro export — not by eye.
+
+> **CORRECTED 29 August 2026.** This paragraph named the private history file `CVAT exports/history/cvat_fish_run_2026-08-06_DATUMARO.zip`, MD5 `dd0da750…`. **The delivered file is `CVAT exports/cvat_fish_run_2026-08-06_FINAL_DATUMARO.zip`, MD5 `d8bdc3b46674363c95dee5a2911740c6`.**
+>
+> **The cited file was not lost. It is retained in the private `CVAT exports/history/` directory**, and the two were diffed annotation by annotation on 29 August. **They differ by exactly one value.** Both hold 30 annotations across 10 images with identical geometry; **one `fish_polygon` on `04_polygon` carries `posture: straight` in the cited export and `posture: indeterminate` in the delivered one.**
+>
+> **That single change is why the distribution below reads `straight 15 / indeterminate 7`. The cited file reads `16 / 6`.** **The published figures describe the delivered artifact, which is correct** - but the paragraph named the wrong file to check them against. **It is also, in all likelihood, the "attribute drift: 1 found, corrected" row of the verification table, caught between two exports and visible now only because both were kept.**
+>
+> **The checks were re-run against the delivered file on 29 August and all pass:** 10 images, 30 annotations, 22 fish instances, **0 missing attributes**, **0 cross-attribute violations**, **0 undersized**, class counts `fish_bbox` 9 · `fish_polygon` 8 · `fish_mask` 3 · `fish_keypoint` 2 · `context_object` 8, and the attribute distribution below reproduced exactly.
 
 | Check | Result |
 |---|---|
@@ -330,8 +341,8 @@ It found one defect: a **7 x 33 px polygon on 04_polygon**, a sliver of a fish v
 
 **Unused attribute values, stated rather than hidden.**
 
-- `posture` never took the value **`curved`** — 17 straight, 5 indeterminate. Every fish encountered was cruising or unreadable. The value is plausible but unexercised.
-- `visibility` never took the value **`heavy_occlusion`** — 19 full, 3 partial. This one is self-consistent rather than accidental: entry 7's boundary-ownership test routes heavily occluded instances to the count rather than to an annotation, so on a set with no bbox-frame heavy occlusions the value has no way to appear.
+- `posture` never took the value **`curved`** — **15 straight, 7 indeterminate**. Every fish encountered was cruising or unreadable. The value is plausible but unexercised.
+- `visibility` never took the value **`heavy_occlusion`** — **18 full, 4 partial**. This one is self-consistent rather than accidental: entry 7's boundary-ownership test routes heavily occluded instances to the count rather than to an annotation, so on a set with no bbox-frame heavy occlusions the value has no way to appear.
 
 An unused schema value looks like an oversight unless the reason is given. One of these has a reason; the other is simply an absence in the data.
 
@@ -341,37 +352,82 @@ It should also vary between platforms. Tools that constrain attribute values to 
 
 ---
 
-## Part 5 — Batch summary
+## Part 5 - Batch summary
 
-| | CVAT | Roboflow | Supervisely | Label Studio | Labelbox | SuperAnnotate |
-|---|---|---|---|---|---|---|
-| Images done (of 10) | **10** | | | | | |
-| Bounding box | 9 | | | | | |
-| Polygon | 8 fish + 6 context | | | | | |
-| Keypoint | 2 skeletons, 10 landmarks | | | | | |
-| Segmentation | 3 masks (2 manual, 1 SAM) | | | | | |
-| Context objects | 8 | | | | | |
-| **Total annotations** | **30** | | | | | |
-| Fish counted below threshold | 4 | | | | | |
-| Excluded, identity unestablished | 2 | | | | | |
-| Edge cases raised | **12** | | | | | |
-| Guideline versions issued | v4.2 → **v5.3** | | | | | |
-| Errors caught in verification | 5 — see below | | | | | |
-| Status | **complete** | | | | | |
+|  | CVAT | Roboflow | Supervisely | Label Studio | Labelbox |
+| --- | --- | --- | --- | --- | --- |
+| Images done | 10 | 5, fixed polygon/mask subset | 10 | 10 | 10 |
+| Bounding boxes | 9 fish | not run | 9 fish | 9 fish | 9 fish |
+| Fish polygons | 8 | 8 | 8 | 8 | 8 |
+| Keypoints | 2 skeletons, 10 landmarks | not run | 2 graphs, 10 nodes | 10 flat points | 10 flat points, no parent skeleton |
+| Segmentation | 3 masks, including manual/assisted pair | 2 regions drawn as polygons | 3 masks, including manual/assisted pair | 2 masks | 2 masks |
+| Context objects | 8 | 4 | 8 | 8 | 8 |
+| Total records | 30 | 14 | 30 | 37 | 37 normalized objects |
+| Comparable attribute result | baseline | unsupported | 66 of 66; independently 63 of 63 outside supplied frame 03 | 87 of 87 | 57 of 57 required values present; cross-platform value equality not re-derived |
+| New edge-case effect | 12 initial entries | no new annotation case | entry 13 created from landmark measurement | entry 13 conclusion weakened by third run | Required attributes not enforced; point grouping unavailable; mask URLs require separate delivery |
+| Verification result | complete | complete with 6 package defects | complete | complete; transient landmark error corrected | complete; current verifier parses the retained CVAT Datumaro archive; self-review only |
+| Status | complete | complete | complete | complete | complete |
 
-**Errors caught in the CVAT verification pass:** one missed fish (added), one attribute drift (corrected), one undersized polygon (deleted), two reviewer false defects (raised and withdrawn). Plus one stale export caught before delivery, and one rule — occluded keypoint flags — found to be written but never exercised.
+Across the five completed image-platform runs, the data supports repeatability for the same annotator. It does not measure inter-annotator agreement. The image milestone closed on 7 September 2026. CVAT video completed on 8 September and is documented below. Text closed on 10 September: 22 abstracts, 405 spans. Audio closed on 15 September: 12 clips, 323 regions and 1,185 records.
 
-**Delivered files:** `cvat_fish_run_2026-08-06_FINAL_DATUMARO.zip` (MD5 `d8bdc3b4…`) and `cvat_fish_run_2026-08-06_FINAL_COCO.zip`. Two earlier exports were superseded and removed from the folder rather than left alongside — a directory containing three plausible "final" files is its own staleness hazard. The COCO file is **incomplete by design of the format** — it carries 28 of 30 annotations, having silently dropped both skeletons while still declaring the keypoint schema. Datumaro is the authoritative export.
+---
 
-*Status: complete / partial / blocked by free tier / not attempted*
+# Video run: CVAT fish tracking, 8 September 2026
 
-**Across the whole run:**
+Six tracks, 762 manually placed visible boxes, 300 frame items at 29.97 fps. Log Track N maps to export ID N-1. Video entries are numbered 14 and 15 to preserve the existing image Entry 13.
 
-- Edge cases raised:
-- Guideline revisions proposed for v4.2:
-- Did every platform produce identical annotations?
-- Platforms not attempted, and why:
-- Annotation types a free tier refused, and on which platform:
-- SAM2 versus manual segmentation (Supervisely): time difference, error difference, what kind of error the model made:
+## Entry 14: motion can preserve location when attributes are unreadable
 
-That second-to-last line belongs in the finished portfolio. Naming what you didn't do, and why, is the same instinct as raising a guideline gap instead of guessing at it.
+Track 1 has 125 frames, f136-f260, with orientation `indeterminate`, visibility `heavy_occlusion`, and posture `indeterminate`. The annotator reports that tail movement kept the fish locatable while orientation and posture became unreadable. The source's wording that all three attributes were indeterminate was incorrect.
+
+The source also reports a reviewer using sampled stills could not resolve later track portions. Sampled stills cannot independently prove identity sustained by motion. Motion can support location; it does not by itself justify identity across a gap or readable orientation/posture.
+
+**Proposed, not adopted:** distinguish locatable from describable instances and record which anatomical region prevents an attribute decision. The run remains documented under guidelines v6.0.
+
+## Entry 15: inspect the delivered tracking file
+
+The source reports an unterminated Track 1 in an earlier checkpoint after confusion between occluded and outside controls. The retained final has an outside marker at f261. Both supplied checkpoint archives equal the finals and cannot reproduce the earlier defect.
+
+The source's 119-excess-box claim remains unresolved: f20-f299 has 280 active frames, the final f20-f260 has 241, a difference of 39. No earlier artifact supporting 119 was supplied. It is not a verified defect count.
+
+**Proposed, not adopted:** read exported track spans, terminators, attributes, and flags before delivery. Editor appearance and export integrity are separate checks.
+
+## Reported final review and recalculated risk zones
+
+| Check | Result and evidence boundary |
+|---|---|
+| Tracks 1/2 | 37 frames with IoU > 0.15 within f115-f157, peak 0.2484 at f138. The supplied log reports frame-by-frame identity review. The full interval has 43 frames; 37 is the threshold-qualified count. |
+| Tracks 2/3 | 13 frames with IoU > 0.15 within f268-f280, peak 0.3150 at f276. The log reports frame-by-frame identity review. |
+| Fragmentation | The annotator catalogued 13 fish and tracked six, reporting no repeated individual among the six IDs. This is a reported review outcome. |
+| Track 6 location | The export and sampled video place it at lower-right, x=483.7 to 720 at f277. The incoming lower-left description was corrected. |
+| Continuous spans | All six active spans are continuous in both exports. Tracks 1, 2, and 4 terminate at f261, f283, and f266; Tracks 3, 5, and 6 continue through f299. |
+| Attribute drift | The review reports checking every track. All twenty logged ranges match the exports; matching ranges do not independently prove semantic correctness. |
+| Outside placement | The review reports the three fish leave. The exports verify markers; sampled stills do not independently establish every endpoint's motion or visibility. |
+| Final-review corrections | Zero reported. Separate from the earlier checkpoint correction; not a zero-error accuracy claim. |
+| Interpolation | Not exercised; manual placement throughout. No interpolation error percentage is claimed. |
+
+## Seven excluded instances, reported by the annotator
+
+| Instance | Frames | Observation | Recorded reason |
+|---|---|---|---|
+| 7 | f0-f56 | Body briefly readable; head unreadable, then disappears | Unresolvable boundary |
+| 8 | f0-f134 | Similar to 7, longer on screen and above it | Unresolvable boundary |
+| 9 | f24-f38 | Unreadable in murk | Unresolvable boundary |
+| 10 | f0-f82 | Partial body, no readable head; reported occlusion by the animal later tracked as Track 2 | Occluder-dominated boundary |
+| 11 | f79-f172 | Partial body, no readable head; reported overlap with Tracks 1 and 2, then loss in murk | Occluder-dominated, then unresolvable |
+| 12 | f278-f299 | Snout and face readable, body unreadable | Insufficient attributes |
+| 13 | f278-f299 | Unreadable in murk, left of instance 12 | Unresolvable boundary |
+
+Final reported split: **4 unresolvable, 2 occluder-dominated, 1 insufficient attributes**. The earlier unsplit note is superseded. Unannotated fish identities and spans cannot be independently reconstructed from the six-track export. Instance 10 ends before Track 2's annotated span starts at f84; its exact occlusion timing is not verified by the export.
+
+The annotator describes six head-unreadable exclusions and one body-unreadable exclusion with a readable head. This suggests a useful head/body distinction for this clip; it does not establish downstream model performance. Proposed v6.1 guidance remains a proposal.
+
+## Text and audio delivery decisions, 15 September 2026
+
+Both modalities are closed. [The case studies](MODALITY_CASE_STUDIES.md) document percentage-span boundaries, scoped attributes, backchannels versus overlap, silence versus audible non-speech, and unintended parent links. The final audio silence-split convention is 1.5 seconds; earlier thresholds are superseded.
+
+## Video consumer notes, 15 September 2026
+
+The visibility attribute, not CVAT's standard occluded flag, records occlusion in this delivery. Of 762 visible boxes, 162 are full, 387 partial and 213 heavy_occlusion. Three additional records are outside terminators. The declared context_object label has no instances.
+
+A sudden box-size change is a review flag, not proof of a tracking failure: occlusion and frame exits can legitimately shrink visible geometry. Review frames and attributes together. See [video provenance](VIDEO_SOURCE_PROVENANCE.txt).

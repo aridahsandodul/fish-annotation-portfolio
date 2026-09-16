@@ -1,15 +1,11 @@
 # Annotation guidelines: fish detection, behavior, and morphology
 
-Version 5.3 — written before annotation begins, as guidelines should be.
+Version 5.3. The initial version was written before annotation; later revisions record issues found during the runs.
 Author: Arid Ahsan Dodul
-Dataset: UnderWater Fish Detection (Roboflow Universe), v6 — https://universe.roboflow.com/underwater-fish/underwater-fish-detection-izi1l — CC BY 4.0.
+Dataset: UnderWater Fish Detection (Roboflow Universe), v6 - https://universe.roboflow.com/underwater-fish/underwater-fish-detection-izi1l - CC BY 4.0.
   Attribution is a licence condition. Annotations in this portfolio are my own, created from scratch; the dataset's original labels were not used.
-Platforms: **CVAT — run complete and delivered. Roboflow — run complete 26 Aug 2026**, 5 frames,
-  3 classes, 14 annotations, COCO Segmentation exported and verified against the CVAT export,
-  public dataset on Universe, **seven numbered findings, a three-defect export audit and two follow-on observations logged**. Supervisely, Label Studio, Labelbox and
-  SuperAnnotate remain **planned comparison runs, not yet performed**; the empty columns in  
-  `platform_comparison_log.md` are where their findings will go.
-Sample: 10 images, identical across every run
+Platforms: **CVAT, Supervisely, Label Studio, and Labelbox completed on ten images. Roboflow completed the fixed five-image polygon and mask subset. SuperAnnotate was removed without use and is outside the portfolio scope.**
+Sample: 10-image design. Roboflow is the documented 5-image exception.
 Annotation types: bounding box, polygon, keypoint, semantic segmentation
 
 ---
@@ -18,7 +14,7 @@ Annotation types: bounding box, polygon, keypoint, semantic segmentation
 
 Label fish and contextual objects in underwater and aquaculture footage so a detection model can learn fish position, orientation, visibility and body morphology. These rules exist so that two annotators working separately produce the same labels on the same image.
 
-The rules are written to be applied identically across six platforms and four annotation types. Any rule that depends on a specific tool's interface is a bad rule, and none appear below.
+The rules are written to be applied identically across five completed image platforms and four annotation types. Any rule that depends on a specific tool's interface is a bad rule, and none appear below.
 
 Anything this document doesn't cover is an edge case. Log it, don't guess it.
 
@@ -28,7 +24,7 @@ Anything this document doesn't cover is an edge case. Log it, don't guess it.
 
 1. Record dataset name, source URL, and licence. Confirm the licence permits re-annotation and public display.
 2. Credit the dataset in the portfolio.
-3. Fix the sample: **the same 10 images**, in the same order, across every platform.
+3. Fix the target sample: **the same 10 images**, in the same order. Record any platform constraint that forces a documented exception.
 4. Assign each image its annotation type using the split below, and **keep that assignment fixed across all platforms**.
 
 ---
@@ -44,7 +40,7 @@ Anything this document doesn't cover is an edge case. Log it, don't guess it.
 
 Choose which image gets which type **before you start**, and write it down. Reassigning mid-run breaks the comparison.
 
-**The split applies to the `fish` class only.** It exists to demonstrate four annotation types on the same subject across six platforms, and the fish are that subject. `context_object` is not part of the comparison and takes whatever shape bounds it sensibly — normally a polygon for thin or diagonal objects such as survey poles, a box for compact ones.
+**The split applies to the `fish` class only.** It exists to demonstrate four annotation types on the same subject across five completed image platforms, and the fish are that subject. `context_object` is not part of the comparison and takes whatever shape bounds it sensibly — normally a polygon for thin or diagonal objects such as survey poles, a box for compact ones.
 
 A frame's assigned type never requires a geometrically meaningless annotation. Where it appears to — a five-point fish skeleton on a light fixture, say — the rule is being applied past its scope.
 
@@ -273,36 +269,26 @@ Stop and log rather than deciding alone when:
 
 ---
 
-## Running this across five platforms
+## Running this across platforms
 
-**Order:** CVAT (baseline) → Roboflow → Supervisely → Label Studio → Labelbox → SuperAnnotate.
+Use the project run protocol for the fixed targets and completion checks. Status and sequencing are
+maintained outside this public rules document.
 
-Roboflow sits second because its free Public plan publishes to Roboflow Universe, so your public portfolio link exists early. Supervisely sits third because its free Community tier is confirmed open and it handles segmentation well, making it the most likely of the commercial tools to complete a full four-type run.
+Hold the ten-image design, frame assignments, class names, attributes and order constant. Roboflow is
+the recorded five-image exception because its project design could not hold the mixed-shape task.
 
-**Supervisely bonus experiment.** Supervisely ships SAM2 for model-assisted segmentation. Repeating the assisted-labelling measurement there turns a single-platform result into a cross-platform one, which is the question hiring teams are actively asking in 2026.
+For assisted-tool results, compare manual and assisted work on the same frame and fish. Record the
+native tool and prompting method. CVAT used SAM; Supervisely used ClickSEG. Their results describe the
+tools as each platform shipped them, not a model benchmark.
 
-> **Corrected 27 August 2026. The original instruction here was to segment image 9 manually and image 10 with SAM2. Do not do that.** The CVAT run tested it and `platform_comparison_log.md` records why it fails: comparing manual on 09 against the model on 10 gives **13.5×**, which is frame difficulty reported as model performance. Running both methods on **the same frame** gives the honest **9.4×**. The original wording predates that finding.
-
-**Design.** Segment **09 manually**, then **09 with SAM2**, then **10 with SAM2**. Same frame, same fish, same boundary for the paired comparison; the second model frame gives the easy-versus-hard spread. Record every time and every correction count.
-
-**Controls, which must match the CVAT run or the two platforms are not comparable:**
-
-- Familiarisation pass first on **`03_bbox`**, a frame used in no measurement, and delete that practice mask. Measured frames are approached cold.
-- The clock runs from **tool selection through final correction**, not from first click.
-- Prompt SAM2 with a **bounding box only**. Disable any label-name-as-text-prompt option: `fish_mask` is a schema artifact, not a description of the animal, and it would confound a poor result.
-- Leave **hole-filling off**, so holes remain visible and countable rather than silently repaired.
-
-**Hold constant:** same 10 images, same type assignment per image, same class and attribute names, same order of work.
-
-**When a platform blocks a type.** Attempt it. If the free tier will not allow it, record exactly what happened in the comparison log and move to the next type. **This is a finding, not a failure.** Which platforms let you do polygon, keypoint and segmentation without paying is genuinely useful information that vendor comparisons never publish.
-
-**Expect this to take longer than a day.** Four annotation types across five platforms is roughly 2 to 2.5 hours per platform. Finish CVAT and Roboflow completely before worrying about the rest — that combination already gives you a full-range demonstration plus a public link.
+If a tier or platform blocks an annotation type, record the exact block. Do not convert setup,
+partial work or a paywall into a completed-run claim.
 
 ---
 
 ## Definition of done
 
-1. All 10 images annotated in their assigned type, on every platform attempted.
+1. All planned images annotated in their assigned type, or every structural or access exception documented.
 2. Every `fish` annotation carries all three attributes.
 3. Keypoints in fixed order, occluded points flagged rather than guessed.
 4. Edge-case log filled during the CVAT baseline run.
@@ -321,7 +307,7 @@ Roboflow sits second because its free Public plan publishes to Roboflow Universe
 | 3.0 | Extended to five platforms, sample fixed at 6 to 8 | Scoped to a single day |
 | 4.0 | Sample raised to 10 images; polygon, keypoint and semantic segmentation added with per-type geometry rules and a fixed image split | Boxes-only portfolio contradicted a resume claiming polygon, keypoint and segmentation experience. Scope now exceeds one day; CVAT and Roboflow prioritised. |
 | 4.1 | Added the annotation threshold: a fish is annotatable only if all three attributes can be assigned with confidence. Blur and dense-school rules rewritten to defer to it. Supervisely added as a sixth platform with a SAM2 manual-versus-assisted experiment. | Sea-cage footage contains far more discernible fish than annotatable ones. Without a threshold the task is unbounded and attributes get invented. Tying inclusion to schema completeness makes the rule self-enforcing and reproducible between annotators. |
-| 4.2 | Added the schema design section: rationale for classes-with-attributes over compound labels, and the error tradeoff each design implies | A schema determines which errors are structurally possible. Compound labels make missing attributes impossible but drift unmeasurable; separable attributes invert that. The choice needed stating, since the verification pass and the threshold rule both follow from it. |
+| 4.2 | Added the schema design section: rationale for classes-with-attributes over compound labels, and the error tradeoff each design implies | A schema determines which errors are structurally possible. Compound labels make missing attributes impossible but make drift harder to measure directly because values are encoded in class names; separable attributes invert that. The choice needed stating, since the verification pass and the threshold rule both follow from it. |
 | 4.3 | Split responsibility between `orientation` and `visibility`: a part hidden by the fish's own pose belongs to `orientation`, a part hidden by an external occluder or the frame edge belongs to `visibility`. Added the lateral-plus-no-head consistency check, and the rationale for a four-value orientation vocabulary. | Raised as edge case 1 on the first annotated instance. v4.2 never said which attribute owned "head not visible", so two annotators could reasonably record the same fish as `visibility: full` and `visibility: partial`. That is a definition gap, not an annotator error. |
 | 4.4 | `orientation: axial` now implies `posture: indeterminate`, as a checkable constraint rather than a judgment call. Silhouette proportions admitted as evidence for orientation where surface detail is unreadable. Separated "below threshold and counted" from "identity unestablished and excluded". | All three came out of frame 01_bbox during the CVAT baseline run, logged as edge cases 2 to 4. The first was found by noticing that 7 of 7 instances carried the tool's default posture value. The second was a rule already being applied consistently but never written down, which is the kind of gap that only shows up between two annotators. The third was a counting question the threshold rule had not anticipated. |
 | 4.5 | `context_object` redefined by principle (human-introduced) rather than by example, with natural habitat structure explicitly background. Added an ordering and instance-ID section; IDs are per-task, not per-frame. | Raised on 02_bbox, edge case 5. The class had been defined by a list of examples that were all artificial without ever saying that was the criterion, which on mangrove footage is a coin flip between labelling nothing and labelling most of the frame. The ID and ordering conventions were being followed in practice but had never been written into this version at all. |

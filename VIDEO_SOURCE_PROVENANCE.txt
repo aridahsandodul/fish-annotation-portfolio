@@ -1,168 +1,34 @@
-VIDEO DATASET PROVENANCE
-========================
+VIDEO SOURCE AND DELIVERED SCOPE
+Updated 15 September 2026.
 
-Name:      Tilapia-RAS Dataset: Underwater Videos and Polygon-Annotated Frames
-           with Physicochemical Metadata
-Host:      Zenodo
-DOI:       10.5281/zenodo.17518786
-Paper:     A Real-World Underwater Video Dataset with Labeled Frames and
-           Water-Quality Metadata for Aquaculture Monitoring
-           MDPI Data, December 2025 — DOI 10.3390/data10120211
-Licence:   CC BY 4.0  (confirmed from the paper's Data Availability Statement)
-Origin:    Commercial recirculating aquaculture system (RAS) integrated with
-           hydroponics, Queretaro, Mexico
-Content:   ~10 hours of underwater recording, curated into 31 clips of 30 s
-Capture:   Commercial action cameras, 1920x1080 to 5312x4648 px, 24-60 fps,
-           varying depth and lighting
-Species:   Tilapia
-Conditions recorded deliberately: turbidity, suspended solids, variable illumination
+Dataset: Tilapia-RAS Dataset: Underwater Videos and Polygon-Annotated Frames
+with Physicochemical Metadata.
+Source: https://doi.org/10.5281/zenodo.17518786
+Paper: https://doi.org/10.3390/data10120211
+Licence: CC BY 4.0, recorded from the paper's Data Availability Statement.
 
-Attribution is required by CC BY 4.0. Credit this dataset in the portfolio.
+Selected source: GX020206, 720p sample.
+Window: source frames 350-649 inclusive, exported as task frames 0-299.
+Resolution: 720 x 630. Frame rate: 29.97 fps. Duration: 10.01 seconds.
+The window contains a readable primary fish, crossings and partial occlusion.
+A full disappearance and re-identification was not demonstrated.
 
+The source authors' polygon annotations were not used to create the tracks.
+No comparison against those annotations is claimed.
 
-CRITICAL — DO NOT USE THE SUPPLIED ANNOTATIONS
-----------------------------------------------
-This dataset ships with 3,520 polygon-annotated frames. Those annotations are the
-authors' work, not mine.
+Delivered 8 September 2026: 6 tracks, 762 visible boxes and 3 outside terminators.
+CVAT XML and Datumaro agree on the 762 visible annotations. Twenty logged
+attribute ranges account for all 2,286 visible-box attribute values.
+Manual placement was reported. Interpolation was not exercised and annotation
+working time was not recorded. Zero final-review corrections is a reported
+review result, not an independently established error rate.
 
-Use the RAW VIDEO ONLY. Every track, box, keyframe and attribute in this portfolio
-is my own, produced from scratch under my own guidelines (v6.0), with no reference
-to the supplied labels.
+Consumer notes:
+- CVAT's standard occluded flag remains 0. Use the visibility attribute:
+  162 full, 387 partial, 213 heavy_occlusion visible boxes.
+- context_object is declared but unused in this window.
+- A geometry change alone cannot prove an identity error. Review it against
+  the frame, visibility and exit flags.
 
-State this explicitly in the portfolio. A dataset that arrives pre-annotated is a
-place where an unclear claim looks like a dishonest one, and the whole point of this
-work is that the judgment shown is mine.
-
-Do not open the supplied annotation files at any point. Not having seen them is a
-stronger statement than having ignored them.
-
-
-CLIP SELECTION
---------------
-Source clip:        GX020206_001150_001220  (Videos/Samples, 720p downscale)
-Working file:       GX020206_TRACK_f350-649.mp4
-Frames used:        350-649 of 899  (frame-exact trim, re-encoded CRF 18)
-Frame rate:         29.97 fps
-Resolution:         720 x 630
-Duration used:      10.01 s / 300 frames
-Full clip length:   30 s / 899 frames
-
-Why this clip
--------------
-All 31 clips are 30 s at 29.97 fps. Four carry the authors' polygon annotations
-(GX010206, GX020019, GX020206, GX030013); the remaining 27 do not. Selection was
-restricted to those four so that a blind comparison against independent annotation
-remains possible.
-
-Of the four:
-  GX020019 - heavy haze, subjects close to the lens and soft. Most instances would
-             fail the annotation threshold. Rejected.
-  GX030013 - one very clear fish at ~frame 150, then long empty stretches. Too
-             little to track. Rejected.
-  GX010206 - workable, but fish are dark, low-contrast and clustered along the
-             bottom of the frame, with heavy mutual occlusion throughout.
-  GX020206 - selected.
-
-Why frames 350-649
-------------------
-A well-lit tilapia traverses right to left across the frame through this window,
-with a visible eye, readable fin margins and gold-green colouring, passing through
-a loose group of fish behind it. That combination gives:
-
-  - one primary track that can be held with confidence for its full span
-  - genuine crossing events, which is where ID switches occur
-  - real occlusion, which exercises the ID persistence rule
-  - a background group dense enough that the annotation threshold does real work
-
-Selected by sampling every 10th frame across the window and inspecting, before any
-annotation began.
-
-Trimmed to 10 s deliberately. 30 s at 29.97 fps is 899 frames, which is a long first
-tracking job; a clip can be extended later, an afternoon cannot be recovered.
-
-Viewing pass (after trimming, before annotating)
-------------------------------------------------
-All four annotated clips were watched end to end at speed to confirm the selection
-made from sampled frames.
-
-Confirmed: GX020206 is the strongest of the four, and the trimmed window contains
-the traverse described above.
-
-GX010206 reconsidered and rejected on a second look. It contains more fish passing
-each other than GX020206 does, but they occur in the murkiest region of the frame,
-where the instances are dark, low-contrast and mutually overlapping. Most would fail
-the annotation threshold. **A crossing between two below-threshold instances
-demonstrates nothing about identity persistence, because neither would carry a track
-in the first place.** Rejected on that basis, not on appearance.
-
-What the selected window does and does not contain
---------------------------------------------------
-Contains: partial overlap between the primary tilapia and at least two other fish -
-the primary's caudal region passing across a fish behind it, and a second fish's
-fins crossing in front of the primary's head. This exercises `visibility` changing
-along a track, boundary decisions under overlap, and ID persistence through partial
-occlusion.
-
-Does not appear to contain: a full occlusion in which an instance disappears
-completely behind another and re-emerges. **The re-identification rule in guidelines
-v6.0 is therefore expected to go unexercised in this batch**, in the same way the
-occluded-keypoint flag went unexercised in the image run. This is recorded in advance
-rather than discovered afterwards, and no attempt was made to select footage that
-would flatter the rule set.
-
-Resolution note
----------------
-The 720p Samples version was used rather than the full-resolution Original. If the
-comparison against the authors' annotations goes ahead, their polygons are in
-Original coordinates and will need scaling by the resolution ratio before any IoU is
-computed. Record the ratio at that point rather than assuming it.
-
-
-CVAT SETUP STATE (as of 8 August 2026)
---------------------------------------
-Task created OUTSIDE any project - CVAT's free tier capped projects at one, which the
-image run already occupied. A task with no parent project carries its own label set,
-so this costs nothing functionally. See the platform comparison log.
-
-Video uploaded successfully: 300 frames, indexed 0-299. The 3.86 MB transfer went
-through without the truncation that affected earlier uploads on this connection.
-
-STILL TO DO before annotation can begin:
-  - Labels not yet added to the task. Paste cvat_labels_video.json into the task's
-    Labels > Raw tab. Expect "Items: 2" afterwards (fish_track, context_object).
-  - Confirm all three attributes are MUTABLE. If a value cannot be changed partway
-    along a track, the mutable flag did not take, and every finding about attribute
-    drift within a track becomes impossible to produce.
-  - Start the timer before the first box.
-
-Annotation type: bounding-box tracks only. Polygons were rejected for tracking because
-interpolating between polygon keyframes requires vertex correspondence, and a fish's
-outline changes shape as it turns - vertex 7 at frame 10 is not the same anatomical
-point as vertex 7 at frame 20. Boxes are also the MOT benchmark standard.
-
-The ground-truth comparison against the authors' polygons, if run, is a SEPARATE task:
-extract 10-20 frames as images, annotate blind, export, and only then open theirs.
-
-
-SCOPE NOTE — 25 August 2026
----------------------------
-300 frames is not 300 annotations. Under the v6.0 rule of a maximum 10-frame
-keyframe interval, a 300-frame clip is ~30 keyframes per track. At three to five
-annotatable tracks that is 90-150 box placements, not 900-1500.
-
-Realistic budget for a careful job, including the end-to-end scrub of each track
-required by the QC section: 3-5 hours. One long session or two evenings.
-
-If that is still too long, the legitimate reduction is to TRIM THE CLIP, not to
-thin the keyframes. Thinning keyframes below the 10-frame maximum breaks the rule
-this project wrote and makes the track a claim nobody verified. Trimming to the
-segment that actually contains the crossing and occlusion events preserves the
-whole point of the video run, which is identity held through those events.
-
-The reasoning is the same one already recorded for choosing one clip over several:
-video demonstrates one thing, and repeating it is volume rather than evidence.
-That logic applies inside a clip as well as across clips. "I selected the 150-frame
-segment containing the two crossing events, because that is where identity is
-actually at risk" is a stronger sentence than "I annotated 300 frames."
-
-If the clip is trimmed, record here which frames were kept and why.
+The source clip and native exports remain private. This repository publishes
+the method, label schema and checked summary.

@@ -19,22 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-SCOPE NOTE
-
-This MIT licence covers the material authored for this repository: the
-guidelines, the edge-case log, the case studies, the platform comparison, the
-schema notes, the label configurations and the scripts.
-
-It does NOT relicense the source datasets, which keep their own terms:
-
-  Images   UnderWater Fish Detection, Roboflow Universe v6      CC BY 4.0
-  Video    Tilapia-RAS Dataset, Zenodo 10.5281/zenodo.17518786  CC BY 4.0
-  Text     22 open-access MDPI aquaculture abstracts            CC BY 4.0
-  Audio    EdAcc, DOI 10.7488/ds/7914                           CC BY-SA 4.0
-
-Attribution is a condition of every one of those licences. The annotations in
-this repository were created from scratch; the source datasets' original labels
-were not used. Source media and native exports are not redistributed here.

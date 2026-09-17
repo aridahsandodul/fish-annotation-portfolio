@@ -49,6 +49,8 @@ These small, same-annotator comparisons measure repeatability and workflow behav
 
 ## Sources and publication boundary
 
+This repository's own material is MIT licensed ([LICENSE](LICENSE)). The source datasets keep their own terms ([NOTICE](NOTICE)):
+
 - **Images:** [UnderWater Fish Detection, Roboflow Universe v6](https://universe.roboflow.com/underwater-fish/underwater-fish-detection-izi1l), CC BY 4.0. Original labels were not used. [Filename mapping](SOURCE_FILENAMES.txt).
 - **Video:** [Tilapia-RAS Dataset](https://doi.org/10.5281/zenodo.17518786), CC BY 4.0. [Clip selection and provenance](VIDEO_SOURCE_PROVENANCE.txt).
 - **Text:** 22 open-access MDPI aquaculture abstracts; source/licence basis and review limits are recorded in the [case study](MODALITY_CASE_STUDIES.md).

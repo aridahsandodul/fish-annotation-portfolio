@@ -1,0 +1,20 @@
+NOTICE
+
+The material authored for this repository is released under the MIT Licence in
+LICENSE. That covers the guidelines, the edge-case log, the case studies, the
+platform comparison, the schema notes, the label configurations and the
+scripts.
+
+The MIT Licence does not relicense the source datasets. Each keeps its own
+terms:
+
+  Images   UnderWater Fish Detection, Roboflow Universe v6      CC BY 4.0
+  Video    Tilapia-RAS Dataset, Zenodo 10.5281/zenodo.17518786  CC BY 4.0
+  Text     22 open-access MDPI aquaculture abstracts            CC BY 4.0
+  Audio    EdAcc, DOI 10.7488/ds/7914                           CC BY-SA 4.0
+
+Attribution is a condition of every one of those licences.
+
+The annotations in this repository were created from scratch; the source
+datasets' original labels were not used. Source media and native exports are
+not redistributed here.

@@ -16,5 +16,13 @@ terms:
 Attribution is a condition of every one of those licences.
 
 The annotations in this repository were created from scratch; the source
-datasets' original labels were not used. Source media and native exports are
-not redistributed here.
+datasets' original labels were not used.
+
+Redistributed here under CC BY 4.0, with attribution in README.md and the
+filename mapping in SOURCE_FILENAMES.txt: the ten source images in
+"Fish Portfolio - CVAT run", five of them again inside the Roboflow export,
+and the screenshots and figures cropped from them. The CVAT exports contain
+annotations only.
+
+Not redistributed: the video clip and its native exports, the text abstracts,
+and the audio and its transcript references.
